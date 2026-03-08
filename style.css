@@ -9,11 +9,20 @@
     --tiktok-color: #000000;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    touch-action: none; /* Disable all gesture scrolling */
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Outfit', sans-serif;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -29,7 +38,7 @@ body {
     justify-content: flex-start;
     overflow: hidden;
     position: relative;
-    padding: 60px 15px;
+    padding: 20px 15px; /* Reduced padding for mobile */
 }
 
 /* Animated Background Blobs */
@@ -217,7 +226,7 @@ body {
 .time-grid {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 10px; /* Reduced gap for mobile */
 }
 
 .time-block {
@@ -225,9 +234,9 @@ body {
     flex-direction: column;
     align-items: center;
     background: rgba(255, 255, 255, 0.05);
-    padding: 10px 15px;
+    padding: 8px 10px; /* Reduced padding */
     border-radius: 10px;
-    min-width: 60px;
+    min-width: 50px; /* Reduced min-width */
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
