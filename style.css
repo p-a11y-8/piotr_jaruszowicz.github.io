@@ -14,8 +14,8 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
     touch-action: none;
     /* Disable all gesture scrolling */
 }
@@ -39,8 +39,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    overflow: hidden;
-    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
     position: relative;
     padding: 20px 15px;
     /* Reduced padding for mobile */
