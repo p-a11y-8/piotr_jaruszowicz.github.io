@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile Links</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Page Loader Animation -->
+    <div class="page-loader">
+        <img class="drone-loader" src="https://images.icon-icons.com/2596/PNG/512/drone_icon_155461.png"
+            alt="Drone Loader">
+    </div>
+    <!-- Animated background elements -->
+    <div class="blob shape1"></div>
+    <div class="blob shape2"></div>
+    <div class="blob shape3"></div>
+    <div class="blob shape4"></div>
+    <div class="blob shape5"></div>
+    <div class="blob shape6"></div>
+
+    <main class="glass-card">
+        <div class="profile-container">
+            <img src="https://cdn2.dumpor.io/a/7d5e9f79-8880-4da3-ac3b-7562b6bdd76b.jpg?t=1772920602"
+                alt="Profile Picture" class="profile-pic">
+        </div>
+
+        <h1 class="name">Piotr</h1>
+        <p class="bio">Hobby Videographer</p>
+
+        <div class="links-container">
+            <a href="https://instagram.com/jar_piotr" target="_blank" class="social-link instagram">
+                <i class="fab fa-instagram"></i>
+                <div class="link-text-wrapper">
+                    <span>Instagram</span>
+                    <span class="follower-count" id="ig-count">68 Followers</span>
+                </div>
+                <i class="fas fa-arrow-right hover-arrow"></i>
+            </a>
+
+            <a href="https://tiktok.com/@jar_piotr" target="_blank" class="social-link tiktok">
+                <i class="fab fa-tiktok"></i>
+                <div class="link-text-wrapper">
+                    <span>TikTok</span>
+                    <span class="follower-count">1k Followers</span>
+                </div>
+                <i class="fas fa-arrow-right hover-arrow"></i>
+            </a>
+
+            <!-- My Gear Button -->
+            <button class="social-link gear-btn" onclick="toggleGearPopup()">
+                <i class="fas fa-camera-retro"></i>
+                <div class="link-text-wrapper">
+                    <span>My Gear</span>
+                    <span class="follower-count">See what I use</span>
+                </div>
+                <i class="fas fa-chevron-down hover-arrow"></i>
+            </button>
+        </div>
+
+
+        <!-- Countdown Section -->
+        <div class="countdown-card">
+            <span class="countdown-title"><i class="fas fa-clock"></i> New Video In</span>
+            <div class="countdown-display" id="countdown-display">
+                <span class="not-planned">Not Planned</span>
+            </div>
+        </div>
+
+        <div class="contact-divider">
+            <span>Skontaktuj się</span>
+        </div>
+
+        <div class="contact-info">
+            <a href="mailto:pjaruszowicz@gmail.com" class="contact-btn">
+                <i class="fas fa-envelope"></i> pjaruszowicz@gmail.com
+            </a>
+        </div>
+        </div>
+    </main>
+
+    <!-- My Gear Popup -->
+    <div class="gear-popup" id="gearPopup">
+        <div class="gear-content">
+            <div class="gear-header">
+                <h2>My Gear</h2>
+                <button class="close-btn" onclick="toggleGearPopup()"><i class="fas fa-times"></i></button>
+            </div>
+            <ul class="gear-list">
+                <li>
+                    <img src="https://images.icon-icons.com/2596/PNG/512/drone_icon_155461.png"
+                        style="width: 30px; margin-right: 15px; filter: brightness(0) invert(1);" alt="Drone Loader">
+                    <div class="gear-details">
+                        <span class="gear-name">DJI Mini 4 Pro</span>
+                        <span class="gear-desc">Primary Drone</span>
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-film"></i>
+                    <div class="gear-details">
+                        <span class="gear-name">DaVinci Resolve</span>
+                        <span class="gear-desc">Video Editing Software</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Page Load Animation
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.page-loader').classList.add('hidden');
+                document.querySelector('.glass-card').style.opacity = '1';
+                document.querySelector('.glass-card').style.transform = 'translateY(0)';
+            }, 200); // 200ms quick delay
+        });
+
+        // Toggle Gear Popup
+        function toggleGearPopup() {
+            const popup = document.getElementById('gearPopup');
+            popup.classList.toggle('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const blobs = document.querySelectorAll('.blob');
+
+            // Set initial mouse target strictly to center of the screen
+            let targetX = document.documentElement.clientWidth / 2;
+            let targetY = document.documentElement.clientHeight / 2;
+            let currentX = targetX;
+            let currentY = targetY;
+
+            document.addEventListener('mousemove', (e) => {
+                targetX = e.clientX;
+                targetY = e.clientY;
+            });
+
+            function animate() {
+                // Smoothly interpolate towards the mouse position
+                currentX += (targetX - currentX) * 0.05;
+                currentY += (targetY - currentY) * 0.05;
+
+                const time = Date.now() * 0.001;
+                const windowWidth = document.documentElement.clientWidth;
+                const windowHeight = document.documentElement.clientHeight;
+
+                blobs.forEach((blob, index) => {
+                    const speed = (index + 1) * 0.03;
+                    // Apply mouse translation plus a gentle autonomous drift
+                    const x = (currentX - windowWidth / 2) * speed + Math.sin(time + index * 2) * 40;
+                    const y = (currentY - windowHeight / 2) * speed + Math.cos(time + index * 2) * 40;
+
+                    blob.style.transform = `translate(${x}px, ${y}px)`;
+                });
+
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            // Attempt to fetch Instagram followers dynamically using Blastup via a proxy to bypass CORS
+            async function fetchIGFollowers() {
+                try {
+                    // Using a public CORS proxy to access Blastup's internal follower count endpoint
+                    const username = 'jar_piotr';
+                    const proxyUrl = 'https://corsproxy.io/?';
+                    const targetUrl = encodeURIComponent(`https://blastup.com/api/ig/user/${username}`);
+
+                    const response = await fetch(proxyUrl + targetUrl);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data && data.followers) {
+                            // Format number (e.g., 10500 -> 10.5k)
+                            let count = data.followers;
+                            let formattedCount = count > 1000 ? (count / 1000).toFixed(1) + 'k' : count;
+                            document.getElementById('ig-count').textContent = `${formattedCount} Followers`;
+                        }
+                    }
+                } catch (e) {
+                    console.error('Failed to fetch follower count silently', e);
+                    // Fallback to static text remains if fetch fails
+                }
+            }
+
+            fetchIGFollowers();
+
+            // Countdown Timer Logic
+            function updateCountdown() {
+                const savedDate = localStorage.getItem('nextVideoDate');
+                const display = document.getElementById('countdown-display');
+
+                if (!savedDate) {
+                    display.innerHTML = '<span class="not-planned">Not planned</span>';
+                    return;
+                }
+
+                const targetTime = new Date(savedDate).getTime();
+                const now = new Date().getTime();
+                const difference = targetTime - now;
+
+                if (difference <= 0) {
+                    display.innerHTML = '<span class="not-planned" style="color: var(--accent);">It\'s here! Go check my TikTok!</span>';
+                    return;
+                }
+
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                let timeStr = '';
+                if (days > 0) timeStr += `<div class="time-block"><span>${days}</span><label>Days</label></div>`;
+                timeStr += `<div class="time-block"><span>${hours.toString().padStart(2, '0')}</span><label>Hrs</label></div>`;
+                timeStr += `<div class="time-block"><span>${minutes.toString().padStart(2, '0')}</span><label>Min</label></div>`;
+                timeStr += `<div class="time-block"><span>${seconds.toString().padStart(2, '0')}</span><label>Sec</label></div>`;
+
+                display.innerHTML = `<div class="time-grid">${timeStr}</div>`;
+            }
+
+            setInterval(updateCountdown, 1000);
+            updateCountdown(); // Initial call
+        });
+    </script>
+
+    <!-- Small Admin Button -->
+    <a href="admin.html" class="admin-button" title="Admin Panel">
+        <i class="fas fa-cog"></i>
+    </a>
+</body>
+
+</html>
