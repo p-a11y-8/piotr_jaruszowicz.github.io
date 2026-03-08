@@ -18,6 +18,8 @@
 
 body {
     min-height: 100vh;
+    height: 100vh;
+    height: 100dvh;
     width: 100vw;
     background-color: var(--bg-color);
     color: var(--text-primary);
@@ -25,7 +27,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    overflow-x: hidden;
+    overflow: hidden;
     position: relative;
     padding: 60px 15px;
 }
@@ -37,6 +39,8 @@ body {
     z-index: -1;
     opacity: 0.6;
     transition: width 0.3s, height 0.3s;
+    will-change: transform;
+    pointer-events: none;
 }
 
 .shape1 {

@@ -139,18 +139,26 @@
                 targetY = e.clientY;
             });
 
+            let windowWidth = window.innerWidth;
+            let windowHeight = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                windowWidth = window.innerWidth;
+                windowHeight = window.innerHeight;
+            });
+
             function animate() {
                 currentX += (targetX - currentX) * 0.05;
                 currentY += (targetY - currentY) * 0.05;
                 const time = Date.now() * 0.001;
-                const windowWidth = document.documentElement.clientWidth;
-                const windowHeight = document.documentElement.clientHeight;
+                const centerX = windowWidth / 2;
+                const centerY = windowHeight / 2;
 
                 blobs.forEach((blob, index) => {
                     const speed = (index + 1) * 0.03;
-                    const x = (currentX - windowWidth / 2) * speed + Math.sin(time + index * 2) * 40;
-                    const y = (currentY - windowHeight / 2) * speed + Math.cos(time + index * 2) * 40;
-                    blob.style.transform = `translate(${x}px, ${y}px)`;
+                    const x = (currentX - centerX) * speed + Math.sin(time + index * 2) * 40;
+                    const y = (currentY - centerY) * speed + Math.cos(time + index * 2) * 40;
+                    blob.style.transform = `translate3d(${x}px, ${y}px, 0)`;
                 });
                 requestAnimationFrame(animate);
             }
