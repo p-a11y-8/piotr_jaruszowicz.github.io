@@ -12,6 +12,8 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1100373876015370310/1480202780403826698/logo.png?ex=69aed1c3&is=69ad8043&hm=7bbfee3b5b4ef58924694db00dbf4226a88847a8459b27202675be2dd83bccc7&">
 </head>
 
 <body>
@@ -33,8 +35,9 @@
             <img src="https://cdn2.dumpor.io/a/7d5e9f79-8880-4da3-ac3b-7562b6bdd76b.jpg?t=1772920602"
                 alt="Profile Picture" class="profile-pic">
         </div>
-
-        <h1 class="name">Piotr</h1>
+        <h1 class="name">Piotr Jaruszowicz <img
+                src="https://cdn.discordapp.com/attachments/1100373876015370310/1480202780403826698/logo.png?ex=69aed1c3&is=69ad8043&hm=7bbfee3b5b4ef58924694db00dbf4226a88847a8459b27202675be2dd83bccc7&"
+                alt="Page Logo" class="name-logo"></h1>
         <p class="bio">Hobby Videographer</p>
 
         <div class="links-container">
@@ -234,7 +237,8 @@
                 display.innerHTML = `<div class="time-grid">${timeStr}</div>`;
             }
 
-            setInterval(updateCountdown, 1000);
+            setInterval(updateCountdown, 1000);    
+            
             updateCountdown(); // Initial call
         });
     </script>
