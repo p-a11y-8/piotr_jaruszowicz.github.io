@@ -138,6 +138,28 @@ body {
     box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
 }
 
+/* Inline Name Logo */
+.name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    letter-spacing: -0.5px;
+}
+
+.name-logo {
+    height: 34px;
+    width: auto;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.name-logo:hover {
+    transform: scale(1.1) rotate(10deg);
+}
+
 /* Profile Section */
 .profile-container {
     margin-bottom: 20px;
@@ -181,12 +203,7 @@ body {
     background-color: var(--bg-color);
 }
 
-.name {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 5px;
-    letter-spacing: -0.5px;
-}
+/* bio style remains */
 
 .bio {
     color: var(--text-secondary);
