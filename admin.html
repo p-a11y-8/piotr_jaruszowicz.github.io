@@ -200,10 +200,21 @@
             showMessage("Timer cleared (Not Planned).", false);
         }
 
+        // Simple SHA-256 hashing function for browser
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
         // Authentication Logic
-        function checkPassword() {
+        async function checkPassword() {
             const pwd = document.getElementById('admin-password').value;
-            if (pwd === '4321') {
+            const hashedInput = await sha256(pwd);
+            const correctHash = 'fe2592b42a727e977f055947385b709cc82b16b9a87f88c6abf3900d65d0cdc3'; // Hash for '4321'
+
+            if (hashedInput === correctHash) {
                 document.getElementById('login-section').style.display = 'none';
                 document.getElementById('admin-section').style.display = 'flex';
                 document.getElementById('admin-password').value = ''; // clear input
