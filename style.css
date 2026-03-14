@@ -14,8 +14,8 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden;
+    overflow-y: auto;
     touch-action: none;
     /* Disable all gesture scrolling */
 }
@@ -39,8 +39,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden;
+    overflow-y: auto;
     position: relative;
     padding: 20px 15px;
     /* Reduced padding for mobile */
@@ -147,6 +147,7 @@ body {
     font-weight: 700;
     margin-bottom: 5px;
     letter-spacing: -0.5px;
+
 }
 
 .name-logo {
@@ -212,74 +213,6 @@ body {
     text-align: center;
 }
 
-/* Countdown Section */
-.countdown-card {
-    display: none;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
-    padding: 15px 20px;
-    margin-top: 15px;
-    width: 100%;
-    text-align: center;
-}
-
-.countdown-title {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-bottom: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.countdown-title i {
-    margin-right: 5px;
-    color: var(--accent);
-}
-
-.not-planned {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #ffffff;
-    opacity: 0.9;
-}
-
-.time-grid {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    /* Reduced gap for mobile */
-}
-
-.time-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 8px 10px;
-    /* Reduced padding */
-    border-radius: 10px;
-    min-width: 50px;
-    /* Reduced min-width */
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.time-block span {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1;
-    color: #ffffff;
-}
-
-.time-block label {
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    margin-top: 5px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
 
 /* Social Links */
 .links-container {

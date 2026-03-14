@@ -13,16 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1100373876015370310/1480202780403826698/logo.png?ex=69aed1c3&is=69ad8043&hm=7bbfee3b5b4ef58924694db00dbf4226a88847a8459b27202675be2dd83bccc7&">
-    <!--Google analitics-->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9CDKPHTSSJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9CDKPHTSSJ');
-</script>
+    <link rel="icon" type="image/png" href="logo.png">
 </head>
 
 <body>
@@ -44,48 +35,11 @@
             <img src="https://cdn2.dumpor.io/a/7d5e9f79-8880-4da3-ac3b-7562b6bdd76b.jpg?t=1772920602"
                 alt="Profile Picture" class="profile-pic">
         </div>
-        <h1 class="name">Piotr Jaruszowicz <img
-                src="https://cdn.discordapp.com/attachments/1100373876015370310/1480202780403826698/logo.png?ex=69aed1c3&is=69ad8043&hm=7bbfee3b5b4ef58924694db00dbf4226a88847a8459b27202675be2dd83bccc7&"
-                alt="Page Logo" class="name-logo"></h1>
+        <h1 class="name">Piotr Jaruszowicz <img src="logo.png" alt="Page Logo" class="name-logo"></h1>
         <p class="bio">Hobby Videographer</p>
 
-        <div class="links-container">
-            <a href="https://instagram.com/jar_piotr" target="_blank" class="social-link instagram">
-                <i class="fab fa-instagram"></i>
-                <div class="link-text-wrapper">
-                    <span>Instagram</span>
-                    <span class="follower-count" id="ig-count">68 Followers</span>
-                </div>
-                <i class="fas fa-arrow-right hover-arrow"></i>
-            </a>
-
-            <a href="https://tiktok.com/@jar_piotr" target="_blank" class="social-link tiktok">
-                <i class="fab fa-tiktok"></i>
-                <div class="link-text-wrapper">
-                    <span>TikTok</span>
-                    <span class="follower-count">1k Followers</span>
-                </div>
-                <i class="fas fa-arrow-right hover-arrow"></i>
-            </a>
-
-            <!-- My Gear Button -->
-            <button class="social-link gear-btn" onclick="toggleGearPopup()">
-                <i class="fas fa-camera-retro"></i>
-                <div class="link-text-wrapper">
-                    <span>My Gear</span>
-                    <span class="follower-count">See what I use</span>
-                </div>
-                <i class="fas fa-chevron-down hover-arrow"></i>
-            </button>
-        </div>
-
-
-        <!-- Countdown Section -->
-        <div class="countdown-card">
-            <span class="countdown-title"><i class="fas fa-clock"></i> New Video In</span>
-            <div class="countdown-display" id="countdown-display">
-                <span class="not-planned">Not Planned</span>
-            </div>
+        <div class="links-container" id="links-container">
+            <!-- Links will be injected here -->
         </div>
 
         <div class="contact-divider">
@@ -134,7 +88,7 @@
                 document.querySelector('.page-loader').classList.add('hidden');
                 document.querySelector('.glass-card').style.opacity = '1';
                 document.querySelector('.glass-card').style.transform = 'translateY(0)';
-            }, 200); // 200ms quick delay
+            }, 200);
         });
 
         // Toggle Gear Popup
@@ -145,10 +99,8 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const blobs = document.querySelectorAll('.blob');
-
-            // Set initial mouse target strictly to center of the screen
-            let targetX = document.documentElement.clientWidth / 2;
-            let targetY = document.documentElement.clientHeight / 2;
+            let targetX = window.innerWidth / 2;
+            let targetY = window.innerHeight / 2;
             let currentX = targetX;
             let currentY = targetY;
 
@@ -157,99 +109,91 @@
                 targetY = e.clientY;
             });
 
-            let windowWidth = window.innerWidth;
-            let windowHeight = window.innerHeight;
-
-            window.addEventListener('resize', () => {
-                windowWidth = window.innerWidth;
-                windowHeight = window.innerHeight;
-            });
-
             function animate() {
-                // Smoothly interpolate towards the mouse position
                 currentX += (targetX - currentX) * 0.05;
                 currentY += (targetY - currentY) * 0.05;
-
                 const time = Date.now() * 0.001;
-                const centerX = windowWidth / 2;
-                const centerY = windowHeight / 2;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
 
                 blobs.forEach((blob, index) => {
                     const speed = (index + 1) * 0.03;
-                    // Apply mouse translation plus a gentle autonomous drift
                     const x = (currentX - centerX) * speed + Math.sin(time + index * 2) * 40;
                     const y = (currentY - centerY) * speed + Math.cos(time + index * 2) * 40;
-
                     blob.style.transform = `translate3d(${x}px, ${y}px, 0)`;
                 });
-
                 requestAnimationFrame(animate);
             }
             animate();
 
-            // Attempt to fetch Instagram followers dynamically using Blastup via a proxy to bypass CORS
-            async function fetchIGFollowers() {
-                try {
-                    // Using a public CORS proxy to access Blastup's internal follower count endpoint
-                    const username = 'jar_piotr';
-                    const proxyUrl = 'https://corsproxy.io/?';
-                    const targetUrl = encodeURIComponent(`https://blastup.com/api/ig/user/${username}`);
-
-                    const response = await fetch(proxyUrl + targetUrl);
-                    if (response.ok) {
-                        const data = await response.json();
-                        if (data && data.followers) {
-                            // Format number (e.g., 10500 -> 10.5k)
-                            let count = data.followers;
-                            let formattedCount = count > 1000 ? (count / 1000).toFixed(1) + 'k' : count;
-                            document.getElementById('ig-count').textContent = `${formattedCount} Followers`;
-                        }
-                    }
-                } catch (e) {
-                    console.error('Failed to fetch follower count silently', e);
-                    // Fallback to static text remains if fetch fails
-                }
-            }
-
-            fetchIGFollowers();
-
-            // Countdown Timer Logic
-            function updateCountdown() {
-                const savedDate = localStorage.getItem('nextVideoDate');
-                const display = document.getElementById('countdown-display');
-
-                if (!savedDate) {
-                    display.innerHTML = '<span class="not-planned">Not planned</span>';
-                    return;
-                }
-
-                const targetTime = new Date(savedDate).getTime();
-                const now = new Date().getTime();
-                const difference = targetTime - now;
-
-                if (difference <= 0) {
-                    display.innerHTML = '<span class="not-planned" style="color: var(--accent);">It\'s here! Go check my TikTok!</span>';
-                    return;
-                }
-
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-                let timeStr = '';
-                if (days > 0) timeStr += `<div class="time-block"><span>${days}</span><label>Days</label></div>`;
-                timeStr += `<div class="time-block"><span>${hours.toString().padStart(2, '0')}</span><label>Hrs</label></div>`;
-                timeStr += `<div class="time-block"><span>${minutes.toString().padStart(2, '0')}</span><label>Min</label></div>`;
-                timeStr += `<div class="time-block"><span>${seconds.toString().padStart(2, '0')}</span><label>Sec</label></div>`;
-
-                display.innerHTML = `<div class="time-grid">${timeStr}</div>`;
-            }
-
-            setInterval(updateCountdown, 1000);    
-            
-            updateCountdown(); // Initial call
+            loadDynamicContent();
         });
+
+        function loadDynamicContent() {
+            // Load Links
+            const container = document.getElementById('links-container');
+
+            // Hardcoded links as requested (removing localStorage dependency)
+            const links = [
+                { title: 'Instagram', url: 'https://instagram.com/jar_piotr', subtitle: '68 Followers', icon: 'fab fa-instagram', visible: true, class: 'instagram' },
+                { title: 'TikTok', url: 'https://tiktok.com/@jar_piotr', subtitle: '1k Followers', icon: 'fab fa-tiktok', visible: true, class: 'tiktok' }
+            ];
+
+            container.innerHTML = '';
+            links.forEach(link => {
+                if (link.visible !== false) {
+                    const a = document.createElement('a');
+                    a.href = link.url;
+                    a.target = "_blank";
+                    a.className = `social-link ${link.class || ''}`;
+                    a.innerHTML = `
+                        <i class="${link.icon}"></i>
+                        <div class="link-text-wrapper">
+                            <span>${link.title}</span>
+                            <span class="follower-count">${link.subtitle}</span>
+                        </div>
+                        <i class="fas fa-arrow-right hover-arrow"></i>
+                    `;
+                    container.appendChild(a);
+                }
+            });
+
+            // Add My Gear button manually at the end
+            const gearBtn = document.createElement('button');
+            gearBtn.className = 'social-link gear-btn';
+            gearBtn.onclick = toggleGearPopup;
+            gearBtn.innerHTML = `
+                <i class="fas fa-camera-retro"></i>
+                <div class="link-text-wrapper">
+                    <span>My Gear</span>
+                    <span class="follower-count">See what I use</span>
+                </div>
+                <i class="fas fa-chevron-down hover-arrow"></i>
+            `;
+            container.appendChild(gearBtn);
+
+            // Fetch dynamic IG followers if linked to jar_piotr
+            fetchIGFollowers();
+        }
+
+        async function fetchIGFollowers() {
+            try {
+                const username = 'jar_piotr';
+                const proxyUrl = 'https://corsproxy.io/?';
+                const targetUrl = encodeURIComponent(`https://blastup.com/api/ig/user/${username}`);
+                const response = await fetch(proxyUrl + targetUrl);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && data.followers) {
+                        let count = data.followers;
+                        let formattedCount = count > 1000 ? (count / 1000).toFixed(1) + 'k' : count;
+                        // Only update if it's the auto-fetched one
+                        const igSubtitle = document.querySelector('.instagram .follower-count');
+                        if (igSubtitle) igSubtitle.textContent = `${formattedCount} Followers`;
+                    }
+                }
+            } catch (e) { console.error('Silent IG fetch failed', e); }
+        }
     </script>
 
     <!-- Small Admin Button -->

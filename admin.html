@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Set Video Timer</title>
+    <title>Admin - Piotr Jaruszowicz</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,53 +12,8 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .admin-form {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .admin-input {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 12px;
-            color: #fff;
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.1rem;
-            color-scheme: dark;
-            /* makes the calendar popup dark mode */
-            transition: border-color 0.3s;
-        }
-
-        .admin-input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .msg {
-            margin-top: 15px;
-            font-weight: 600;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .msg.show {
-            opacity: 1;
-        }
-
-        .success {
-            color: #4ade80;
-        }
-
-        .info {
-            color: var(--accent);
-        }
-    </style>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
 </head>
 
 <body>
@@ -71,56 +26,14 @@
     <div class="blob shape6"></div>
 
     <main class="glass-card"
-        style="align-items: center; justify-content: center; max-width: 400px; padding: 40px 30px;">
-        <!-- Login Section -->
-        <div id="login-section"
-            style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px;">
-            <h1 class="name">Admin Access</h1>
-            <p class="bio" style="margin-bottom: 5px;">Enter password to continue</p>
-            <input type="password" id="admin-password" class="admin-input" placeholder="Password"
-                style="text-align: center;" onkeypress="if(event.key === 'Enter') checkPassword()">
-            <button class="contact-btn" onclick="checkPassword()"
-                style="background: rgba(255,255,255,0.1); border-color: transparent;">
-                <i class="fas fa-lock-open"></i> Login
-            </button>
-            <p id="login-msg" class="msg"></p>
-            <div style="margin-top: 15px; width: 100%;">
-                <a href="index.html" class="contact-btn">
-                    <i class="fas fa-arrow-left"></i> Back to Profile
-                </a>
-            </div>
-        </div>
-
-        <!-- Admin Settings Section -->
-        <div id="admin-section" style="display: none; width: 100%; flex-direction: column; align-items: center;">
+        style="align-items: center; justify-content: center; max-width: 400px; padding: 40px 30px; opacity: 1; transform: translateY(0);">
+        <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px;">
             <h1 class="name">Admin Panel</h1>
-            <p class="bio" style="margin-bottom: 5px;">Set your next video release</p>
-
-            <div class="admin-form">
-                <label for="release-date"
-                    style="color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Date
-                    & Strict Hour</label>
-                <input type="datetime-local" id="release-date" class="admin-input">
-
-                <button class="contact-btn" onclick="saveDate()"
-                    style="background: rgba(255,255,255,0.1); border-color: transparent;">
-                    <i class="fas fa-save"></i> Save Countdown
-                </button>
-                <button class="contact-btn" onclick="clearDate()"
-                    style="border-color: rgba(255,0,0,0.3); color: #ff6b6b;">
-                    <i class="fas fa-trash"></i> Clear (Not Planned)
-                </button>
-            </div>
-
-            <p id="admin-msg" class="msg"></p>
-
-            <div style="margin-top: 30px; width: 100%;">
-                <button onclick="logout()" class="contact-btn"
-                    style="border-color: rgba(255,0,0,0.3); color: #ff6b6b; margin-bottom: 15px;">
-                    <i class="fas fa-sign-out-alt"></i> Lock Panel
-                </button>
-                <a href="index.html" class="contact-btn">
-                    <i class="fas fa-arrow-left"></i> Back to Profile
+            <p class="bio" style="margin-bottom: 5px;">This section is currently inactive.</p>
+            
+            <div style="margin-top: 15px; width: 100%;">
+                <a href="index.html" class="social-link" style="justify-content: center;">
+                    <i class="fas fa-arrow-left"></i> <span>Back to Profile</span>
                 </a>
             </div>
         </div>
@@ -139,20 +52,12 @@
                 targetY = e.clientY;
             });
 
-            let windowWidth = window.innerWidth;
-            let windowHeight = window.innerHeight;
-
-            window.addEventListener('resize', () => {
-                windowWidth = window.innerWidth;
-                windowHeight = window.innerHeight;
-            });
-
             function animate() {
                 currentX += (targetX - currentX) * 0.05;
                 currentY += (targetY - currentY) * 0.05;
                 const time = Date.now() * 0.001;
-                const centerX = windowWidth / 2;
-                const centerY = windowHeight / 2;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
 
                 blobs.forEach((blob, index) => {
                     const speed = (index + 1) * 0.03;
@@ -163,75 +68,9 @@
                 requestAnimationFrame(animate);
             }
             animate();
-
-            // Layout reveal
-            setTimeout(() => {
-                document.querySelector('.glass-card').style.opacity = '1';
-                document.querySelector('.glass-card').style.transform = 'translateY(0)';
-            }, 100);
-
-            // Load existing date
-            const savedDate = localStorage.getItem('nextVideoDate');
-            if (savedDate) {
-                document.getElementById('release-date').value = savedDate;
-            }
         });
-
-        function showMessage(text, isSuccess) {
-            const msgEl = document.getElementById('admin-msg');
-            msgEl.textContent = text;
-            msgEl.className = "msg show " + (isSuccess ? "success" : "info");
-            setTimeout(() => { msgEl.classList.remove('show'); }, 3000);
-        }
-
-        function saveDate() {
-            const dateVal = document.getElementById('release-date').value;
-            if (!dateVal) {
-                showMessage("Please select a date and time!", false);
-                return;
-            }
-            localStorage.setItem('nextVideoDate', dateVal);
-            showMessage("Date saved successfully!", true);
-        }
-
-        function clearDate() {
-            localStorage.removeItem('nextVideoDate');
-            document.getElementById('release-date').value = '';
-            showMessage("Timer cleared (Not Planned).", false);
-        }
-
-        // Simple SHA-256 hashing function for browser
-        async function sha256(message) {
-            const msgBuffer = new TextEncoder().encode(message);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        // Authentication Logic
-        async function checkPassword() {
-            const pwd = document.getElementById('admin-password').value;
-            const hashedInput = await sha256(pwd);
-            const correctHash = 'fe2592b42a727e977f055947385b709cc82b16b9a87f88c6abf3900d65d0cdc3'; // Hash for '4321'
-
-            if (hashedInput === correctHash) {
-                document.getElementById('login-section').style.display = 'none';
-                document.getElementById('admin-section').style.display = 'flex';
-                document.getElementById('admin-password').value = ''; // clear input
-            } else {
-                const msgEl = document.getElementById('login-msg');
-                msgEl.textContent = "Incorrect password";
-                msgEl.className = "msg show";
-                msgEl.style.color = "#ff6b6b";
-                setTimeout(() => { msgEl.classList.remove('show'); }, 3000);
-            }
-        }
-
-        function logout() {
-            document.getElementById('admin-section').style.display = 'none';
-            document.getElementById('login-section').style.display = 'flex';
-        }
     </script>
+
 </body>
 
 </html>
